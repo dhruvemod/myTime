@@ -7,7 +7,7 @@ const ToDo = require('../../models/ToDo');
 router.post('/:projectId/todo', async (req, res) =>{
     const projectId = req.params.projectId;
     const toDoItem = new ToDo({
-        task: req.body,
+        task: req.body.task,
         ownerProject: projectId,
     });
     try{
