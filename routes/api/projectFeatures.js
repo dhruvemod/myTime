@@ -14,6 +14,18 @@ router.get('/:projectId/features/:id', async (req, res)=>{
     }
 });
 
+//Get All the project features
+
+router.get('/:id/features', async (req, res) => {
+    const projectId = req.params.id;
+    try{
+        const foundFeature = await ProjectFeatures.find({ownerProject: projectId});
+        res.json(foundFeature);
+    }catch(err){
+        res.json({msg:err});
+    }
+});
+
 // Delete a feature
 router.delete('/:projectId/features/:featureId', async (req, res) => {
     try{
@@ -40,7 +52,7 @@ router.delete('/:projectId/features/:featureId', async (req, res) => {
 
 // Update any feature
 router.patch('/:projectId/features/:featureId', async (req, res)=>{
-    const {featureId} = req.params.featureId;
+    const featureId = req.params.featureId;
     var updatedFeature = req.body;
     try{
          const updated =await ProjectFeatures.findByIdAndUpdate({_id: featureId}, updatedFeature ); 

@@ -69,8 +69,12 @@ router.delete('/:id', async (req, res) => {
 // Create a feature for the project
 
 router.post('/:id/features', async (req, res) => {
-    const feature = req.body;
+    const feature = new ProjectFeatures({
+        feature: req.body.feature,
+        ownerProject: req.params.id
+    });
     const { id } = req.params;
+
     const newFeature = await ProjectFeatures.create(feature);
 
     const updatedProject = await Project.findByIdAndUpdate(
@@ -79,19 +83,10 @@ router.post('/:id/features', async (req, res) => {
             $push: {projectFeatures: newFeature._id}
         }
     );
-res.json(updatedProject);
+res.json(newFeature);
 });
 
 
-//Get All the project features
 
-router.get('/:id/features', async (req, res) => {
-    try{
-        const foundFeature = await Project.find({_id :req.params.id}).populate("projectFeatures");
-        res.json(foundFeature);
-    }catch(err){
-        res.json({msg:err});
-    }
-});
 
 module.exports = router;

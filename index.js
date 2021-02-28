@@ -8,6 +8,7 @@ const projectsRoute = require('./routes/api/project');
 const projectFeature = require('./routes/api/projectFeatures');
 const dailyTaskRoute = require('./routes/api/dailyTasks');
 const toDoTaskRoute = require('./routes/api/toDo');
+const ticketRoute = require('./routes/api/ticket');
 app = express();
 
 // Body parser middleware
@@ -28,6 +29,7 @@ app.use('/projects', projectsRoute);
 app.use('/projects', projectFeature);
 app.use('/projects', dailyTaskRoute);
 app.use('/projects', toDoTaskRoute);
+app.use('/projects', ticketRoute);
 
 
 

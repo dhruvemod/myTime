@@ -18,6 +18,7 @@ router.post('/:projectId/todo', async (req, res) =>{
             projectId,
             {$push: {toDo: taskCreated._id}}
         );
+        const project = await Project.find().populate('toDo');
         // Returning the toDo task created
         res.json(taskCreated);
     }catch(err){
